@@ -1,7 +1,22 @@
 doctype html
-html
+html.h-100
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  body.h-100.d-flex.flex-column
+    header.container
+      nav.navbar.navbar-expand-sm
+        a.navbar-brand(href="#") Inventory
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link(href="#") Brands
+          li.nav-item
+            a.nav-link(href="#") Categories
+          li.nav-item
+            a.nav-link(href="#") All items
+    main.container.flex-grow-1
+      block content
+    footer.container-fluid.border-top.text-bg-primary.p-2
+      .container.d-flex.align-items-center.justify-content-around
+        p.m-0 Styled with Bootstrap 5
