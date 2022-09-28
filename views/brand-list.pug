@@ -1,7 +1,10 @@
 extends layout 
 
 block content
-  ul 
-    each brand in brands
-      li
-        a(href=brand.url)= brand.name
+  h1=title
+  each brand in brands
+    .card.mb-3
+      .card-body
+        h2
+          a(href=brand.url).card-title= brand.name
+        p.card-text= brand.description

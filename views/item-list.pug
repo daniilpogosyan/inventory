@@ -1,7 +1,18 @@
 extends layout
 
 block content
-  ul 
-    each item in items
-      li
-        a(href=item.url)= item.name
+  h1=title
+  each item in items
+    .card.mb-3
+      .card-body
+        h2.card-title
+          a(href=item.url)= item.name
+        p.card-subtitle Produced by #[a(href=item.brand.url) #{item.brand.name}]
+        p.card-text= item.description
+        p.card-text
+          each category in item.category
+            a(href=category.url)= category.name
+            //- do not put coma after the last category
+            if category != item.category[item.category.length - 1]
+              | , 
+        p.card-text.text-muted in stock: #{item.numberInStock}
