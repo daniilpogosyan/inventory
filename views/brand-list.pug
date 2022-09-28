@@ -3,4 +3,5 @@ extends layout
 block content
   ul 
     each brand in brands
-      li= brand.name
+      li
+        a(href=brand.url)= brand.name

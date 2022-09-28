@@ -3,4 +3,5 @@ extends layout
 block content
   ul 
     each item in items
-      li= item.name
+      li
+        a(href=item.url)= item.name
