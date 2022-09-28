@@ -2,7 +2,11 @@ const Item = require('../models/item');
 
 
 exports.itemListGET = (req, res, next) => {
-  Item.find().exec((err, items) => {
+  Item
+  .find()
+  .populate('brand', 'name')
+  .populate('category', 'name')
+  .exec((err, items) => {
     if (err) {
       return next(err)
     }
