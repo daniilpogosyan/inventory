@@ -4,10 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require('mongoose');
+
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog');
 
 var app = express();
+
+
+// connect to the database
+const MONGODB_URI = 'mongodb+srv://daniilpogosyan1234134:12341234@cluster0.42kht8d.mongodb.net/inventory?retryWrites=true&w=majority';
+mongoose.connect(MONGODB_URI);
+const db = mongoose.connection;
+db.on('error', () => console.log('MongoDB connection error.'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,7 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
