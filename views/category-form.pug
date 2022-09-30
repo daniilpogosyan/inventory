@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  form(action="" method="POST")
+    div.form-floating
+      input(
+        type="text"
+        name="name"
+        placeholder="Some new category"
+        required
+        minlength=3
+        maxlength=50
+        )#category-name.form-control
+      label(for="category-name").form-label Category name:
+    button.btn.btn-primary.mt-3 Submit
