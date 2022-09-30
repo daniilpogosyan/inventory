@@ -14,6 +14,9 @@ router.get('/categories', categoryController.categoryListGET);
 // Get the form for creating category
 router.get('/category/create', categoryController.categoryFormGET);
 
+// Get info page of the category
+router.get('/category/:id', categoryController.categoryDetailGET)
+
 // Create category from the form data
 router.post('/category/create', categoryController.categoryFormPOST);
 

@@ -1,0 +1,7 @@
+extends layout
+include mixins/item-card.pug
+
+block content 
+  h1 Category: #{category.name}
+  each item in items 
+    +item-card(item)
