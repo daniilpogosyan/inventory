@@ -61,13 +61,19 @@ exports.categoryFormPOST = [
   categoryValidator(),
   (req, res, next) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(errors.array());
-    }
-
     const category = new Category({
       name: req.body.name
     });
+
+    if (!errors.isEmpty()) {
+      res.render('category-form', {
+        title: 'New Category',
+        category: category,
+        errors: errors.array()
+      });
+      return;
+    }
+
     category.save((err, category) => {
       if (err) {
         return next(err)
@@ -101,8 +107,17 @@ exports.categoryUpdatePOST = [
   categoryValidator(),
   (req, res, next) => {
     const errors = validationResult(req);
+    
+    // use lean object instead of mongoose.Document to save memory usage
+    const leanCategory = req.body;
+
     if (!errors.isEmpty()) {
-      return next(errors.array())
+      res.render('category-form', {
+        title: 'New Category',
+        category: leanCategory,
+        errors: errors.array()
+      });
+      return      
     }
 
     Category.findByIdAndUpdate(req.params.id, {...req.body}, {}, (err, category) => {

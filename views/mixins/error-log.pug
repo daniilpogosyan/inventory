@@ -1,0 +1,5 @@
+mixin error-log(errors)
+  ul
+    if (errors) 
+      each error in errors 
+        li= error.msg
