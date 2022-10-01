@@ -129,3 +129,34 @@ exports.categoryUpdatePOST = [
     });
   }
 ]
+
+exports.categoryDeletePOST = (req, res, next) => {
+  Item.find({category: req.params.id}).exec((err, items) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (items.length === 0) {
+      Category.findByIdAndDelete(req.params.id).exec((err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/catalog/categories');
+      });
+      return;
+    }
+
+    Promise.all([
+      //remove the category from item's category lists
+      Item.updateMany({}, {$pull: { category: req.params.id }}).exec(),
+      //remove the category
+      Category.findByIdAndDelete(req.params.id).exec()
+    ])
+    .then(([items, category]) => {
+      res.redirect('/catalog/categories');
+    })
+    .catch(err => {
+      next(err);
+    });
+  });
+}

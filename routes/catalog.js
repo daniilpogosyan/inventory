@@ -23,6 +23,9 @@ router.get('/category/:id/update', categoryController.categoryUpdateGET)
 // Update category from the form data
 router.post('/category/:id/update', categoryController.categoryUpdatePOST)
 
+// Delete category from database
+router.post('/category/:id/delete', categoryController.categoryDeletePOST)
+
 // Create category from the form data
 router.post('/category/create', categoryController.categoryFormPOST);
 
