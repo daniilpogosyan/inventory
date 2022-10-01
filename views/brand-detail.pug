@@ -1,0 +1,21 @@
+extends layout
+include mixins/item-card.pug
+
+block append scripts 
+  script(src="/javascripts/toggle-delete-alert.js", defer)
+
+block content 
+  h1 Brand: #{brand.name}
+  p= brand.description
+  each item in items 
+    +item-card(item)
+  a(href=brand.url + '/update').btn.btn-primary Update
+  button#delete-alert-toggler.btn.btn-danger.ms-5 Delete
+  div#delete-alert.alert.alert-danger.invisible.mt-4
+    if (items.length === 0)
+      p Do you really want to delete brand #[span.fw-bolder #{brand.name}]?
+      form(action=brand.url + "/delete", method="POST")
+        button#delete-btn-confirm.btn.btn-danger Submit
+    else
+      p You need to delete all items produced by #{brand.name}.
+      p (#{items.length} items left.)
