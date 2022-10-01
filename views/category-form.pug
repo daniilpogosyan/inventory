@@ -11,6 +11,7 @@ block content
         required
         minlength=3
         maxlength=50
+        value= category? category.name : ""
         )#category-name.form-control
       label(for="category-name").form-label Category name:
     button.btn.btn-primary.mt-3 Submit

@@ -4,6 +4,13 @@ const { body, validationResult } = require('express-validator');
 const Category = require('../models/category');
 const Item = require('../models/item');
 
+const categoryValidator = () => {
+  return body('name')
+    .trim()
+    .isLength({min: 3, max: 50})
+    .escape()
+    .withMessage('"Name" length should be from 3 to 50 characters')
+}
 
 exports.categoryListGET = (req, res, next) => {
   Category.find().exec((err, categories) => {
@@ -51,11 +58,7 @@ exports.categoryFormGET = (req, res, next) => {
 }
 
 exports.categoryFormPOST = [
-  body('name')
-    .trim()
-    .isLength({min: 3, max: 50})
-    .escape()
-    .withMessage('"Name" length should be from 3 to 50 characters'),
+  categoryValidator(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,5 +75,42 @@ exports.categoryFormPOST = [
 
       res.redirect(category.url)
     })
+  }
+]
+
+exports.categoryUpdateGET = (req, res, next) => {
+  Category.findById(req.params.id).exec((err, category) => {
+    if (err) {
+      return next(err)
+    }
+
+    if (category === null) {
+      const err = new Error('Category not found');
+      err.status = 123;
+      return next(err);
+    }
+
+    res.render('category-form', {
+      title: 'Update Category',
+      category
+    })
+  })
+}
+
+exports.categoryUpdatePOST = [
+  categoryValidator(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(errors.array())
+    }
+
+    Category.findByIdAndUpdate(req.params.id, {...req.body}, {}, (err, category) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.redirect(category.url);
+    });
   }
 ]

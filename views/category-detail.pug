@@ -5,3 +5,4 @@ block content
   h1 Category: #{category.name}
   each item in items 
     +item-card(item)
+  a(href=category.url + '/update').btn.btn-primary Update

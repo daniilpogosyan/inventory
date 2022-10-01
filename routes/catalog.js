@@ -17,6 +17,12 @@ router.get('/category/create', categoryController.categoryFormGET);
 // Get info page of the category
 router.get('/category/:id', categoryController.categoryDetailGET)
 
+// Get the form for creating category, but with the prefilled data
+router.get('/category/:id/update', categoryController.categoryUpdateGET)
+
+// Update category from the form data
+router.post('/category/:id/update', categoryController.categoryUpdatePOST)
+
 // Create category from the form data
 router.post('/category/create', categoryController.categoryFormPOST);
 
