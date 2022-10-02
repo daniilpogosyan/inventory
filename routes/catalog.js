@@ -64,6 +64,12 @@ router.get('/item/create', itemController.itemFormGET);
 // Create item
 router.post('/item/create', itemController.itemFormPOST);
 
+// Get item form prefilled with existing data
+router.get('/item/:id/update', itemController.itemUpdateGET);
+
+// Update existing item
+router.post('/item/:id/update', itemController.itemUpdatePOST);
+
 // Get info page of the item
 router.get('/item/:id', itemController.itemDetailGET);
 

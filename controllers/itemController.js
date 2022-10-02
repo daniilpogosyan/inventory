@@ -128,3 +128,61 @@ exports.itemFormPOST = [
     })
   }
 ]
+
+exports.itemUpdateGET = (req, res, next) => {
+  Promise.all([
+    Category.find().exec(),
+    Brand.find().exec(),
+    Item.findById(req.params.id).exec()
+  ]).then(([categories, brands, item]) => {
+    if (item === null) {
+      const err = new Error('Item not found');
+      err.status = 404;
+      return next(err);
+    }
+    res.render('item-form', {
+      title: 'Update Item',
+      categories,
+      brands,
+      item
+    })
+  })
+  .catch(err => {
+    next(err);
+  })
+}
+
+exports.itemUpdatePOST = [
+  itemValidator(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const leanItem = req.body;
+
+    if (!errors.isEmpty()) {
+      Promise.all([
+        Category.find().exec(),
+        Brand.find().exec()
+      ]).then(([categories, brands]) => {
+        res.render('item-form', {
+          title: 'Update Item',
+          item: leanItem,
+          categories,
+          brands,
+          errors: errors.array()
+        });
+      })
+      .catch(err => {
+        next(err);
+      })
+      return;
+    }
+
+    Item.findByIdAndUpdate(req.params.id, leanItem, {}, (err, item) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect(item.url);
+    });    
+  }
+]

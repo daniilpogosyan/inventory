@@ -9,3 +9,4 @@ block content
     each category in item.category 
       a(href=category.url).badge.text-bg-primary.me-3.text-decoration-none= category.name
   p.text-muted in stock: #{item.numberInStock}
+  a(href=item.url + '/update').btn.btn-primary Update
