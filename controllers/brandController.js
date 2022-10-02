@@ -86,3 +86,48 @@ exports.brandFormPOST = [
     })
   }
 ]
+
+exports.brandUpdateGET = (req, res, next) => {
+  Brand.findById(req.params.id).exec((err, brand) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (brand === null) {
+      const err = new Error('Brand not found');
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render('brand-form', {
+      title: 'Update Brand',
+      brand
+    })
+  })
+}
+
+exports.brandUpdatePOST = [
+  brandValidator(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    // plain js object that contains brand data
+    const leanBrand = req.body;
+
+    if (!errors.isEmpty()) {
+      res.render('brand-form', {
+        title: 'Update Brand',
+        brand: leanBrand,
+        errors: errors.array()
+      });
+      return
+    }
+
+    Brand.findByIdAndUpdate(req.params.id, {...leanBrand}, {}, (err, brand) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect(brand.url);
+    })
+  }
+]

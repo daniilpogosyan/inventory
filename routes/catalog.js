@@ -16,6 +16,12 @@ router.get('/brand/create', brandController.brandFormGET);
 // Create a new brand
 router.post('/brand/create', brandController.brandFormPOST);
 
+// Get brand creating form prefilled with current data
+router.get('/brand/:id/update', brandController.brandUpdateGET);
+
+// Update brand 
+router.post('/brand/:id/update', brandController.brandUpdatePOST);
+
 // Get info page of the brand
 router.get('/brand/:id', brandController.brandDetailGET)
 
