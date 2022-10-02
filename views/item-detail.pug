@@ -1,5 +1,7 @@
 extends layout
 
+block append scripts 
+  script(src="/javascripts/toggle-delete-alert.js", defer)
 
 block content 
   h1 #{item.name} #[span.badge.text-bg-info #{item.price.toFixed(2)}$]
@@ -10,3 +12,9 @@ block content
       a(href=category.url).badge.text-bg-primary.me-3.text-decoration-none= category.name
   p.text-muted in stock: #{item.numberInStock}
   a(href=item.url + '/update').btn.btn-primary Update
+  button#delete-alert-toggler.btn.btn-danger.ms-5 Delete
+  div#delete-alert.alert.alert-danger.invisible.mt-4
+    p Do you really want to delete this item?
+    form(action=item.url + "/delete", method="POST")
+      button#delete-btn-confirm.btn.btn-danger Submit
+

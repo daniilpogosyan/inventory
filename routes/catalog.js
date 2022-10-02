@@ -70,6 +70,9 @@ router.get('/item/:id/update', itemController.itemUpdateGET);
 // Update existing item
 router.post('/item/:id/update', itemController.itemUpdatePOST);
 
+// Delete item from database
+router.post('/item/:id/delete', itemController.itemDeletePOST);
+
 // Get info page of the item
 router.get('/item/:id', itemController.itemDetailGET);
 

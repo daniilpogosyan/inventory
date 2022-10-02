@@ -186,3 +186,12 @@ exports.itemUpdatePOST = [
     });    
   }
 ]
+
+exports.itemDeletePOST = (req, res, next) => {
+  Item.findByIdAndDelete(req.params.id).exec((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/catalog/items');
+  })
+}
