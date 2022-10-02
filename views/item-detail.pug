@@ -1,0 +1,11 @@
+extends layout
+
+
+block content 
+  h1 #{item.name} #[span.badge.text-bg-info #{item.price.toFixed(2)}$]
+  p= item.description
+  p Produced by #[a(href=item.brand.url).fw-bold #{item.brand.name}]
+  p 
+    each category in item.category 
+      a(href=category.url).badge.text-bg-primary.me-3.text-decoration-none= category.name
+  p.text-muted in stock: #{item.numberInStock}

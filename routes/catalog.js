@@ -58,5 +58,8 @@ router.post('/category/create', categoryController.categoryFormPOST);
 // Get list of items
 router.get('/items', itemController.itemListGET);
 
+// Get info page of the item
+router.get('/item/:id', itemController.itemDetailGET);
+
 
 module.exports = router;
