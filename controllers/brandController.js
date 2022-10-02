@@ -131,3 +131,25 @@ exports.brandUpdatePOST = [
     })
   }
 ]
+
+
+exports.brandDeletePOST = (req, res, next) => {
+  Item.find({brand: req.params.id}).exec((err, items) => {
+    if (err) {
+      return next(err)
+    }
+
+    if (items.length > 0) {
+      const err = new Error(`There are items from this brand in database`);
+      err.status = 500;
+      return next(err);
+    }
+
+    Brand.findByIdAndDelete(req.params.id).exec((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/catalog/brands');
+    })
+  })
+}

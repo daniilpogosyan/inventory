@@ -22,6 +22,9 @@ router.get('/brand/:id/update', brandController.brandUpdateGET);
 // Update brand 
 router.post('/brand/:id/update', brandController.brandUpdatePOST);
 
+// Delete brand from database
+router.post('/brand/:id/delete', brandController.brandDeletePOST);
+
 // Get info page of the brand
 router.get('/brand/:id', brandController.brandDetailGET)
 
