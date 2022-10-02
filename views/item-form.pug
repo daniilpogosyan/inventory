@@ -1,0 +1,78 @@
+extends layout 
+
+include mixins/error-log.pug 
+
+block content 
+  h1= title
+  form(action="" method="POST") 
+
+    div.form-floating.mb-3
+      input(
+        type="text"
+        placeholder='Item name'
+        name='name'
+        minlength=3
+        maxlength=50
+        required
+        value=item ? item.name : ""
+      )#item-name.form-control
+      label(for="item-name").form-label Item name
+
+    div.form-floating.mb-3
+      textarea(
+        name="description"
+        maxlength=500
+        placeholder="Description"
+      )#item-description.form-control= item? item.description : ''
+      label(for="item-description").form-label Description
+
+    p Categories:
+    div#categories.container.mb-3
+      each category in categories
+        -const categoryId = 'category-' + category.name;
+        -const isChecked = item && item.category.some((categoryId => category._id.equals(categoryId)));
+        input(
+          type="checkbox"
+          id=categoryId
+          name="category"
+          checked=isChecked
+          value=category._id
+        ).btn-check
+        label(for=categoryId).btn.btn-outline-primary.mb-2.me-3= category.name
+        
+    div.form-floating.mb-3
+      select(name="brand")#item-brand.form-select
+        each brand in brands
+          option(
+            value=brand._id
+            selected=item && brand._id.equals(item.brand)
+          )= brand.name
+      label(for="item-brand").form-label Brand
+
+    label(for="item-price").form-label Price:
+    .input-group.mb-3
+      span.input-group-text $
+      input(
+        type="number"
+        min=0.01
+        step=0.01
+        name="price"
+        placeholder="0.00"
+        required
+        value=item ? item.price : ""
+      )#item-price.form-control
+    
+    label(for="item-in-stock").form-label Items in stock:
+    input(
+      type="number"
+      min=0
+      step=1
+      name="numberInStock"
+      placeholder=0
+      required
+      value=item ? item.numberInStock : ""
+    )#item-in-stock.form-control
+
+    button.btn.btn-primary.mt-4 Submit
+
+  +error-log(errors)

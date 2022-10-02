@@ -58,6 +58,12 @@ router.post('/category/create', categoryController.categoryFormPOST);
 // Get list of items
 router.get('/items', itemController.itemListGET);
 
+//Get form for item creating
+router.get('/item/create', itemController.itemFormGET);
+
+// Create item
+router.post('/item/create', itemController.itemFormPOST);
+
 // Get info page of the item
 router.get('/item/:id', itemController.itemDetailGET);
 

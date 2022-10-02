@@ -2,6 +2,9 @@ extends layout
 include mixins/item-card.pug
 
 block content
-  h1=title
+  .container.mb-3
+    .row.justify-content-start.align-items-center
+      h1.col=title
+      a(href="/catalog/item/create").col.btn.btn-primary + New Item 
   each item in items
     +item-card(item)
