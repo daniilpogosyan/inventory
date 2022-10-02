@@ -1,7 +1,10 @@
 extends layout 
 
 block content
-  h1=title
+  .container.mb-3
+    .row.justify-content-start.align-items-center
+      h1.col=title
+      a(href="/catalog/brand/create").col.btn.btn-primary + New Brand 
   each brand in brands
     .card.mb-3
       .card-body

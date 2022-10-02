@@ -10,6 +10,12 @@ const itemController = require('../controllers/itemController');
 // Get list of brands
 router.get('/brands', brandController.brandListGET);
 
+// Get the form for creating brand
+router.get('/brand/create', brandController.brandFormGET);
+
+// Create a new brand
+router.post('/brand/create', brandController.brandFormPOST);
+
 // Get info page of the brand
 router.get('/brand/:id', brandController.brandDetailGET)
 

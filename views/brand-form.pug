@@ -1,0 +1,29 @@
+extends layout 
+
+include mixins/error-log.pug
+
+block content 
+  h1= title 
+  form(action="" method="POST") 
+    div.form-floating.mb-3
+      input(
+        type="text"
+        name="name"
+        placeholder="Brand name"
+        required
+        minlength=3
+        maxlength=50
+        value=brand? brand.name : ""
+        )#brand-name.form-control
+      label(for="brand-name").form-label Brand name 
+    label(for="brand-description") Description
+    textarea(
+      name="description"
+      maxlength=500
+    )#brand-description.form-control
+      if (brand)
+        |  #{brand.description}
+    button.btn.btn-primary.mt-3 Submit 
+  +error-log(errors)
+     
+    
